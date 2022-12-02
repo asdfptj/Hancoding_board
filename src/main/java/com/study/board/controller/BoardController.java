@@ -15,6 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class BoardController {
 
+    @GetMapping("/js")
+    public String js() {
+        return "jsproject";
+    }
+
     @Autowired
     private BoardService boardService;
 

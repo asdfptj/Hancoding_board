@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>asdf</title>
+
+    <script>
+        function checkSelectAll()  {
+            // 전체 체크박스
+            const checkboxes
+                = document.querySelectorAll('input[name="nolmal"]');
+            // 선택된 체크박스
+            const checked
+                = document.querySelectorAll('input[name="nolmal"]:checked');
+            // select all 체크박스
+            const selectAll
+                = document.querySelector('input[name="all"]');
+
+            if(checkboxes.length === checked.length)  {
+                selectAll.checked = true;
+            }else {
+                selectAll.checked = false;
+            }
+
+        }
+
+        function selectAll(selectAll)  {
+            const checkboxes
+                = document.getElementsByName('nolmal');
+
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = selectAll.checked
+            })
+        }
+
+    const innerBox = document.getElementById("innerBox")
+    function test() {
+            document.getElementById("in").innerHTML = innerBox;
+    }
+
+    </script>
+</head>
+<body>
+<input type="checkbox" name="all" onclick="selectAll(this)">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<input type="checkbox" name="nolmal" onclick="checkSelectAll()">
+<br>
+<br>
+<br>
+
+<input type="text" id="innerBox"> <button onclick="test()">확인</button>
+<p id="in">abc</p>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+<input type="text">
+<br>
+<input type="text">
+
+
+
+<br>
+<br>
+<input type="text"><button> + </button> <button> - </button>
+
+</body>
+</html>
