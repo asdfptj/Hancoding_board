@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>asdf</title>
 
     <script>
-        function checkSelectAll()  {
+        function checkSelectAll() {
             // 전체 체크박스
             const checkboxes
                 = document.querySelectorAll('input[name="nolmal"]');
@@ -16,15 +17,15 @@
             const selectAll
                 = document.querySelector('input[name="all"]');
 
-            if(checkboxes.length === checked.length)  {
+            if (checkboxes.length === checked.length) {
                 selectAll.checked = true;
-            }else {
+            } else {
                 selectAll.checked = false;
             }
 
         }
 
-        function selectAll(selectAll)  {
+        function selectAll(selectAll) {
             const checkboxes
                 = document.getElementsByName('nolmal');
 
@@ -33,13 +34,43 @@
             })
         }
 
-    const innerBox = document.getElementById("innerBox")
-    function test() {
-            document.getElementById("in").innerHTML = innerBox;
-    }
 
+
+        function printName() {
+            const name = document.getElementById('name').value;
+            document.getElementById("result").innerText = name;
+        }
+
+
+        function downColor() {
+            document.getElementById("down").style.backgroundColor = "red";
+        }
+
+        function down() {
+            document.getElementById("down").style.backgroundColor = "white";
+        }
+        function up() {
+            document.getElementById("up").style.backgroundColor = "white";
+        }
+
+        function upColor() {
+            document.getElementById("up").style.backgroundColor = "lightblue";
+        }
+
+
+
+        function printAppend() {
+            const inputName = document.getElementById('inputName').value;
+            document.getElementById("resultText").innerText += inputName;
+        }
+
+        function deleteText() {
+            let resultText = document.getElementById("resultText").value;
+            console.log(resultText.value)
+        }
     </script>
 </head>
+
 <body>
 <input type="checkbox" name="all" onclick="selectAll(this)">
 <input type="checkbox" name="nolmal" onclick="checkSelectAll()">
@@ -58,36 +89,27 @@
 <input type="checkbox" name="nolmal" onclick="checkSelectAll()">
 <br>
 <br>
-<br>
-
-<input type="text" id="innerBox"> <button onclick="test()">확인</button>
-<p id="in">abc</p>
-
+<input type="text" id="name"> <button onclick="printName()">확인</button>
+<p id="result">abc</p>
 <br>
 <br>
 <br>
 <br>
-<br>
-
-<br>
-<br>
+<input type="text" onkeydown="downColor()" onkeyup="down()"><br>
+<button id="down">button</button>
 <br>
 <br>
 <br>
-
-
-
-
-
-<input type="text">
-<br>
-<input type="text">
-
-
-
+<input type="text" onkeydown="up()" onkeyup="upColor()"><br>
+<button id="up" style="background-color: lightblue;">button</button>
 <br>
 <br>
-<input type="text"><button> + </button> <button> - </button>
-
+<br>
+<br>
+<input type="text" id="inputName"><button onclick="printAppend()"> + </button> <button onclick="deleteText()"> -
+</button>
+<p id="resultText"></p>
+<del>아아아아아아아</del>
 </body>
+
 </html>
