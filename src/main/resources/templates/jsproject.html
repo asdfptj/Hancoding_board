@@ -65,8 +65,14 @@
         }
 
         function deleteText() {
-            let resultText = document.getElementById("resultText").value;
-            console.log(resultText.value)
+            let str = document.getElementById("resultText").innerText;
+            let input = document.getElementById("inputName").value;
+            console.log(input);
+
+            let result = str.split(input).join('');
+            // change = str.replace(input, '');
+            document.getElementById("resultText").innerText = result;
+
         }
     </script>
 </head>
@@ -109,7 +115,6 @@
 <input type="text" id="inputName"><button onclick="printAppend()"> + </button> <button onclick="deleteText()"> -
 </button>
 <p id="resultText"></p>
-<del>아아아아아아아</del>
 </body>
 
 </html>
