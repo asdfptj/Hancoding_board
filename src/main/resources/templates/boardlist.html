@@ -4,7 +4,71 @@
     <meta charset="UTF-8">
     <title>게시글 리스트 페이지</title>
 </head>
+<script th:src="@{https://code.jquery.com/jquery-2.2.4.min.js}" ></script>
+<script>
+  
+  function checkSelectAll(event) {
+    let result = '';
+    if(event.target.checked)  {
+      result = event.target.value;
+    }else {
+      result = '';
+    }
 
+    console.log(result)
+    // 전체 체크박스
+    const checkboxes
+            = document.querySelectorAll('input[name="nolmal"]');
+    // 선택된 체크박스
+    const checked
+            = document.querySelectorAll('input[name="nolmal"]:checked');
+    // select all 체크박스
+    const selectAll
+            = document.querySelector('input[name="all"]');
+
+    if (checkboxes.length === checked.length) {
+      selectAll.checked = true;
+    } else {
+      selectAll.checked = false;
+    }
+
+  }
+
+  function selectAll(selectAll) {
+    const checkboxes
+            = document.getElementsByName('nolmal');
+
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = selectAll.checked
+    })
+  }
+
+  $(document).on("click","#delBtn",function (){
+    // var ids = [];
+    // $("input[name=nolmal]:checked").each(function(i){
+    //
+    //   ids.push($(this).val());
+    //
+    // });
+    //
+    // console.log("ids"+ids);
+
+
+    // var form = $("#delForm");
+    // var input1 = document.createElement('input');
+    // input1.type = 'hidden';
+    // input1.name = 'ids[]';
+    // input1.value = ids;
+    // console.log(input1.value);
+    // $("#ids").val(ids);
+
+
+
+
+    $("#delForm").submit();
+  })
+  
+</script>
 <style>
   .layout {
     width: 500px;
@@ -17,16 +81,22 @@
     <table>
       <thead>
         <tr>
+          <th><input type="checkbox" name="all" onclick="selectAll(this)"></th>
           <th>글번호</th>
           <th>제목</th>
         </tr>
       </thead>
       <tbody>
-      <tr th:each="board : ${list}">
-        <td th:text="${board.id}">1</td>
-        <td>
-          <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a></td>
-      </tr>
+      <form th:action="@{/board/deleteForm}" method="get" id="delForm">
+<!--        <input type="hidden" name="ids[]" id="ids">-->
+        <tr th:each="board : ${list}">
+          <td><input type="checkbox" name="nolmal" onclick="checkSelectAll(event)" th:value="${board.id}" id="normal"></td>
+          <td th:text="${board.id}"></td>
+          <td>
+            <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a></td>
+        </tr>
+
+      </form>
       </tbody>
     </table>
     <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
@@ -36,7 +106,11 @@
     <form th:action="@{/board/list}" method="get">
       <input type="text" name="searchKeyword">
       <button type="submit">검색</button>
+
+
       </form>
+    <button type="button" id="delBtn">삭제</button>
   </div>
+
 </body>
 </html>

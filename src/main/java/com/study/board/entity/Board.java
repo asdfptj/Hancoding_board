@@ -22,4 +22,8 @@ public class Board {
 
     private String filepath;
 
+    private String delYN;
+
+    //private String[] ids;
+
 }
