@@ -5,6 +5,7 @@
     <title>게시글 리스트 페이지</title>
 </head>
 <script th:src="@{https://code.jquery.com/jquery-2.2.4.min.js}" ></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
 <script>
   
   function checkSelectAll(event) {
@@ -67,7 +68,25 @@
 
     $("#delForm").submit();
   })
-  
+
+
+  $(document).on("click","#btn1",function (){
+      $.ajax({
+          url : "/test.json",
+          type : 'post',
+          data : {
+              name : "이름",
+              age : "20",
+              gender : "man"
+          },
+          success : function(data) {
+              $('#result').text(data);
+          },
+          error : function() {
+              alert("simpleWithObject err");
+          }
+      });
+  })
 </script>
 <style>
   .layout {
@@ -111,6 +130,10 @@
       </form>
     <button type="button" id="delBtn">삭제</button>
   </div>
-
+    <br>
+  <body>
+  <button id="btn1">simpleAJAX</button>
+  <div id="result"></div>
+  </body>
 </body>
 </html>

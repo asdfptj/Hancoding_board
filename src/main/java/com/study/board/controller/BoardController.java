@@ -9,17 +9,29 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.lang.System.out;
 
 
 @Controller
 public class BoardController {
 
+    @RequestMapping(value="/test.json", method=RequestMethod.POST)
+    @ResponseBody
+    public String simpleWithObject(@RequestParam("name") String name, @RequestParam("age") String age, @RequestParam("gender") String gender) {
+        //필요한 로직 처리
+        System.out.println(name);
+        System.out.println(age);
+        System.out.println(gender);
+        return name+age+gender;
+    }
     @GetMapping("/js")
     public String js() {
         return "jsproject";
@@ -45,10 +57,13 @@ public class BoardController {
         return "message";
     }
 
+
+
     @GetMapping("/board/list")
     public String boardList(Model model,
                             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                             String searchKeyword) {
+
         Page<Board> list = null;
 
         if(searchKeyword == null) {
@@ -67,6 +82,8 @@ public class BoardController {
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+
+        
 
         return "boardlist";
 
@@ -113,7 +130,7 @@ public class BoardController {
     public String deleteForm(Board board, HttpServletRequest request){
         String[] arrayParam = request.getParameterValues("nolmal");
 
-        System.out.println("arrayParam : " + arrayParam[0]);
+        out.println("arrayParam : " + arrayParam[0]);
         for(int i=0; i<= arrayParam.length; i++){
             Board boardTemp = boardService.boardView(Integer.parseInt(arrayParam[i]));
             boardTemp.setDelYN("Y");
