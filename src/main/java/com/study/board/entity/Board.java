@@ -24,6 +24,6 @@ public class Board {
 
     private String delYN;
 
-    //private String[] ids;
+//    private String[] ids;
 
 }

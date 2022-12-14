@@ -1,7 +1,13 @@
 package com.study.board.controller;
 
 import com.study.board.entity.Board;
+import com.study.board.repository.BoardRepository;
 import com.study.board.service.BoardService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,14 +20,61 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 import static java.lang.System.out;
 
 
 @Controller
 public class BoardController {
+
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/excel/download")
+    public void excelDownload(HttpServletResponse response, Integer id, Board board, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws IOException {
+//        Workbook wb = new HSSFWorkbook();
+        Page<Board> list = null;
+        list = boardService.boardList(pageable);
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("첫번째 시트");
+        Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+
+        // Header
+        row = sheet.createRow(rowNum++);
+        cell = row.createCell(1);
+        cell.setCellValue("글번호");
+        cell = row.createCell(2);
+        cell.setCellValue("제목");
+//        cell = row.createCell(3);
+
+
+        // Body
+        for (int i = 0; i < list.getSize(); i++) {
+            row = sheet.createRow(rowNum++);
+            cell = row.createCell(1);
+            cell.setCellValue(list.getContent().get(i).getId());
+            cell = row.createCell(2);
+            cell.setCellValue(list.getContent().get(i).getTitle());
+//            cell = row.createCell(3);
+
+        }
+
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+//        response.setHeader("Content-Disposition", "attachment;filename=example.xls");
+        response.setHeader("Content-Disposition", "attachment;filename=example.xlsx");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+
+
 
     @RequestMapping(value="/test.json", method=RequestMethod.POST)
     @ResponseBody
@@ -39,6 +92,8 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private BoardRepository boardRepository;
 
     @GetMapping("/board/write") //localhost:8090/board/write
     public String boardWriteForm() {

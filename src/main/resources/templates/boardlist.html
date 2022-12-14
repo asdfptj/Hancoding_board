@@ -45,23 +45,23 @@
   }
 
   $(document).on("click","#delBtn",function (){
-    // var ids = [];
-    // $("input[name=nolmal]:checked").each(function(i){
-    //
-    //   ids.push($(this).val());
-    //
-    // });
-    //
-    // console.log("ids"+ids);
+    var ids = [];
+    $("input[name=nolmal]:checked").each(function(i){
+
+      ids.push($(this).val());
+
+    });
+
+    console.log("ids"+ids);
 
 
-    // var form = $("#delForm");
-    // var input1 = document.createElement('input');
-    // input1.type = 'hidden';
-    // input1.name = 'ids[]';
-    // input1.value = ids;
-    // console.log(input1.value);
-    // $("#ids").val(ids);
+    var form = $("#delForm");
+    var input1 = document.createElement('input');
+    input1.type = 'hidden';
+    input1.name = 'ids[]';
+    input1.value = ids;
+    console.log(input1.value);
+    $("#ids").val(ids);
 
 
 
@@ -135,6 +135,18 @@
 
   <button id="btn1">simpleAJAX</button>
   <div id="result"></div>
+
+
+  <br>
+  <br>
+  <form action="/examples/test/excelDown.do" method="post">
+      .
+      .
+      .
+      <input type="submit" value='엑셀 다운로드'>
+  </form>
+  <br>
+  <br>
 
   <div id="map" style="width:500px;height:400px;"></div>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=349278b09d940ab3dd7310205808d3a0"></script>
